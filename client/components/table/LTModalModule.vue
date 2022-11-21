@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     sendState(newState) {
-      console.log(1)
       this.$evBus.send('table-modal-' + this.name, newState)
     }
   }
