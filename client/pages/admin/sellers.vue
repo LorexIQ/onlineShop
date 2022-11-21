@@ -31,7 +31,15 @@
                   {{ row.n }}
                 </template>
                 <template v-else-if="typeof row[column.id] !== 'undefined'">
-                  {{ row[column.id] }}
+                  <template v-if="column.type === 'svg-boolean'">
+                    <lfa
+                      :style="{color: row[column.id] ? '#1eb000' : '#ff4141'}"
+                      :icon="row[column.id] ? 'check' : 'times'"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ row[column.id] }}
+                  </template>
                 </template>
               </l-td>
             </l-tr>

@@ -2,7 +2,7 @@
   <l-tfoot v-if="pages > 1">
     <l-tr :hover="false">
       <l-td colspan="100%">
-        <transition-group tag="module" class="module" name="fade-pro">
+        <transition-group tag="div" class="module" name="fade-pro">
           <div
             class="module__button module__button--small"
             v-if="arrayPages[0] !== 0"
@@ -177,7 +177,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
   &__button {
     font-size: 16px;
     font-weight: 500;

@@ -48,7 +48,7 @@ export default {
   ],
 
   proxy: {
-    '/api/': { target: process.env.API_URL }
+    '/api/': { target: process.env.API_URL ? process.env.API_URL : 'http://localhost:3000'  }
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
