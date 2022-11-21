@@ -1,18 +1,36 @@
 <script>
-import Profile from "@/pages/profile";
+import Vue from 'vue'
 export default {
   name: "LTRow",
-  components: {Profile},
   props: {
+    name: {
+      type: String,
+      default: () => {
+        return 'default'
+      }
+    },
     hover: {
       type: Boolean,
       default: () => {
         return true
       }
+    },
+    modal: {
+      type: Boolean,
+      default: () => {
+        return false
+      }
+    }
+  },
+  methods: {
+    clickFunction() {
+      if (this.modal) {
+        this.$evBus.send('table-modal-' + this.name, true)
+      }
     }
   },
   render(element) {
-    return element('tr', { class: `l-tr ${this.hover ? 'l-tr--hover' : ''}` }, this.$slots.default)
+    return element('tr', { class: `l-tr ${this.hover ? 'l-tr--hover' : ''}`, on: { click: this.clickFunction } }, this.$slots.default)
   }
 }
 </script>

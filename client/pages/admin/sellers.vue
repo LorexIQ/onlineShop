@@ -21,6 +21,7 @@
               v-if="tableData.length"
               v-for="row in tableData"
               :key="row.id"
+              :modal="true"
             >
               <l-td
                 v-for="column in tableColumns"
@@ -47,8 +48,13 @@
               <l-td text-align="center" colspan="100%">Нет Данных</l-td>
             </l-tr>
           </l-tbody>
-          <l-tloader/>
-          <l-tpag url="api/test/pagination" v-model="tableData" :visible-buttons="5"/>
+          <l-tloader-module/>
+          <l-tmodal-module>
+            <div slot="header">Title</div>
+            <div slot="body">body</div>
+            <div slot="footer">footer</div>
+          </l-tmodal-module>
+          <l-tpag-module url="api/test/pagination" v-model="tableData" :visible-buttons="5"/>
         </l-table>
       </div>
     </div>
@@ -89,6 +95,11 @@ export default {
           width: '130px'
         }
       ]
+    }
+  },
+  methods: {
+    onClickRow(item) {
+      console.log(item)
     }
   }
 }

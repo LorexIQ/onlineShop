@@ -3,7 +3,8 @@ export default {
   name: "LTable",
   data() {
     return {
-      loader: false
+      loader: false,
+      modal: false
     }
   },
   props: {
@@ -15,10 +16,11 @@ export default {
     }
   },
   render(element) {
-    return element('table', { class: `l-table ${this.loader ? 'loader' : ''}` }, this.$slots.default)
+    return element('table', { class: `l-table ${this.loader ? 'loader' : ''} ${this.modal ? 'modal' : ''}` }, this.$slots.default)
   },
   mounted() {
     this.$evBus.listen('table-pag-' + this.name, (loaderStatus) => this.loader = loaderStatus)
+    this.$evBus.listen('table-modal-' + this.name, (modalStatus) => this.modal = modalStatus)
   }
 }
 </script>
@@ -33,6 +35,12 @@ export default {
   background-color: #f2f2f2;
   &.loader {
     & .l-tloader {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+  &.modal {
+    & .l-tmodal {
       pointer-events: all;
       opacity: 1;
     }

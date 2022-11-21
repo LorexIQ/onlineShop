@@ -18,6 +18,7 @@ import LTHeader from "@/components/table/LTHeader";
 import LTFoot from "@/components/table/LTFoot";
 import LTPaginationModule from "@/components/table/LTPaginationModule";
 import LTLoaderModule from "@/components/table/LTLoaderModule";
+import LTModalModule from "~/components/table/LTModalModule";
 
 Vue.use(VueTheMask)
 
@@ -36,5 +37,6 @@ Vue.component('l-tfoot', LTFoot)
 Vue.component('l-tr', LTRow)
 Vue.component('l-td', LTData)
 Vue.component('l-th', LTHeader)
-Vue.component('l-tpag', LTPaginationModule)
-Vue.component('l-tloader', LTLoaderModule)
+Vue.component('l-tpag-module', LTPaginationModule)
+Vue.component('l-tloader-module', LTLoaderModule)
+Vue.component('l-tmodal-module', LTModalModule)
