@@ -32,7 +32,7 @@
           title="Админ"
           key="admin"
           :click="() => { $router.push({ path: '/admin' }) }"
-          v-if="logged && $auth.user.role === 2"
+          v-if="logged && $auth.user.role === 3"
         >
           <div class="navbar__box__nav__svg">
             <lfa icon="unlock"/>

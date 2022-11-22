@@ -1,6 +1,6 @@
 <template>
   <l-tbody class="l-tmodal">
-    <l-tr :hover="false">
+    <l-tr>
       <l-td>
         <div class="l-tmodal__box">
           <div class="l-tmodal__box__header">

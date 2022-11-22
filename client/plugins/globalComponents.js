@@ -1,13 +1,6 @@
 import Vue from 'vue'
 import VueTheMask from 'vue-the-mask'
 
-import LInput from "~/components/LInput";
-import LButton from "@/components/LButton";
-import LInputMasked from "@/components/LInputMasked";
-import LNavBar from "@/components/LNavBar";
-import LNavBarButton from "@/components/LNavBarButton";
-import LAdminButton from "@/components/LAdminButton";
-
 // Table components
 import LTable from "@/components/table/LTable";
 import LTBody from "@/components/table/LTBody";
@@ -20,14 +13,15 @@ import LTPaginationModule from "@/components/table/LTPaginationModule";
 import LTLoaderModule from "@/components/table/LTLoaderModule";
 import LTModalModule from "~/components/table/LTModalModule";
 
-Vue.use(VueTheMask)
+import LInput from "~/components/LInput";
+import LButton from "@/components/LButton";
+import LInputMasked from "@/components/LInputMasked";
+import LNavBar from "@/components/LNavBar";
+import LNavBarButton from "@/components/LNavBarButton";
+import LAdminButton from "@/components/LAdminButton";
+import LSvgBooleanStatus from "@/components/LSvgBooleanStatus";
 
-Vue.component('l-input', LInput)
-Vue.component('l-input-masked', LInputMasked)
-Vue.component('l-button', LButton)
-Vue.component('l-navbar', LNavBar)
-Vue.component('l-navbar-btn', LNavBarButton)
-Vue.component('l-admin-button', LAdminButton)
+Vue.use(VueTheMask)
 
 // Table components
 Vue.component('l-table', LTable)
@@ -40,3 +34,11 @@ Vue.component('l-th', LTHeader)
 Vue.component('l-tpag-module', LTPaginationModule)
 Vue.component('l-tloader-module', LTLoaderModule)
 Vue.component('l-tmodal-module', LTModalModule)
+
+Vue.component('l-input', LInput)
+Vue.component('l-input-masked', LInputMasked)
+Vue.component('l-button', LButton)
+Vue.component('l-navbar', LNavBar)
+Vue.component('l-navbar-btn', LNavBarButton)
+Vue.component('l-admin-button', LAdminButton)
+Vue.component('l-svg-boolean-status', LSvgBooleanStatus)

@@ -1,6 +1,6 @@
 <template>
   <l-tbody class="l-tloader">
-    <l-tr :hover="false">
+    <l-tr>
       <l-td colspan="100%">
         <span class="wobblebar-loader"/>
       </l-td>

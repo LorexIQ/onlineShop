@@ -1,11 +1,11 @@
 <template>
   <div class="sellers">
-    <div class="sellers__box box">
+    <div class="sellers__box main-box">
       <h1>Панель управления продавцами</h1>
       <div class="sellers__box__table">
         <l-table>
           <l-thead>
-            <l-tr :hover="false">
+            <l-tr>
               <l-th
                 v-for="column in tableColumns"
                 :key="column.id"
@@ -17,7 +17,7 @@
             </l-tr>
           </l-thead>
           <l-tbody>
-            <l-tr
+            <l-tr :hover="true"
               v-if="tableData.length"
               v-for="row in tableData"
               :key="row.id"
@@ -28,15 +28,12 @@
                 :key="column.id"
                 :text-align="column.align"
               >
-                <template v-if="column.type === 'n'">
+                <template v-if="column.type === 'increment'">
                   {{ row.n }}
                 </template>
                 <template v-else-if="typeof row[column.id] !== 'undefined'">
                   <template v-if="column.type === 'svg-boolean'">
-                    <lfa
-                      :style="{color: row[column.id] ? '#1eb000' : '#ff4141'}"
-                      :icon="row[column.id] ? 'check' : 'times'"
-                    />
+                    <l-svg-boolean-status v-model="row[column.id]"/>
                   </template>
                   <template v-else>
                     {{ row[column.id] }}
@@ -67,13 +64,12 @@ export default {
   middleware: 'admin',
   data() {
     return {
-      page: 1,
       tableData: [],
       tableColumns: [
         {
           id: 'N',
           name: '№ п/п',
-          type: 'n',
+          type: 'increment',
           align: 'center',
           width: '70px'
         },
@@ -96,11 +92,6 @@ export default {
         }
       ]
     }
-  },
-  methods: {
-    onClickRow(item) {
-      console.log(item)
-    }
   }
 }
 </script>
@@ -108,8 +99,6 @@ export default {
 <style lang="scss" scoped>
 .sellers {
   &__box {
-    max-width: 1100px;
-    margin: 40px auto;
     &__table {
       margin-top: 20px;
     }

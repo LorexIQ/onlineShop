@@ -1,6 +1,6 @@
 <template>
   <l-tfoot v-if="pages > 1">
-    <l-tr :hover="false">
+    <l-tr>
       <l-td colspan="100%">
         <transition-group tag="div" class="module" name="fade-pro">
           <div

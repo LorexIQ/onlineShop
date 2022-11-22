@@ -129,7 +129,8 @@ export default {
     return {
       rolesList: {
         1: 'Пользователь',
-        2: 'Администратор'
+        2: 'Администратор',
+        3: 'СуперАдмин'
       },
       userData: {},
       sellerData: {},

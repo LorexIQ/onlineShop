@@ -12,7 +12,7 @@ export default {
     hover: {
       type: Boolean,
       default: () => {
-        return true
+        return false
       }
     },
     modal: {
