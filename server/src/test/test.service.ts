@@ -1,17 +1,16 @@
 import {Injectable} from "@nestjs/common";
+import {PaginationService} from "../pagination/pagination.service";
+import { PaginationDto } from "../pagination/dto/pagination.dto";
 
 @Injectable({})
 export class TestService {
-    sliceArray(data: Array<any>, limit: number, offset: number): Array<any> {
-        const slicedArray = data.slice(offset, parseInt(String(offset)) + parseInt(String(limit)));
-        slicedArray.forEach(el => el.n = offset++ + 1);
-        return slicedArray;
-    }
+    constructor(private builderPag: PaginationService) {}
+
     getRandomSymbol(): String {
         const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
         return alphabet[Math.ceil(Math.random() * (alphabet.length - 1))];
     }
-    paginationTest(query: { limit: number; offset: number; }): { count: number; values: Array<Object> } {
+    paginationTest(query: PaginationDto): { count: number; values: Array<Object> } {
         const testArray = [];
         for (let i of Array(200).keys()) {
             testArray.push({
@@ -21,10 +20,7 @@ export class TestService {
             });
         }
         testArray.reverse()
-        return {
-            count: testArray.length,
-            values: !(query.limit && query.offset) ? testArray : this.sliceArray(testArray, query.limit, query.offset)
-        };
+        return this.builderPag.buildPaginationObject(testArray, query);
 
     }
 }

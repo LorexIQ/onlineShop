@@ -7,6 +7,7 @@ import { MongodbModule } from './mongodb/mongodb.module';
 import { MailerModule } from './mailer/mailer.module';
 import {SellerModule} from "./seller/seller.module";
 import {TestModule} from "./test/test.module";
+import {PaginationModule} from "./pagination/pagination.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import {TestModule} from "./test/test.module";
     MongooseModule.forRoot('mongodb://localhost/db-study'),
     MongodbModule,
     MailerModule,
+    PaginationModule,
     TestModule
   ],
 })

@@ -11,7 +11,7 @@ export class User {
   hash: string;
 
   @Prop({ default: 1 })
-  rule: number;
+  role: number;
 
   @Prop()
   image: string;

@@ -1,11 +1,12 @@
-import {Body, Controller, Get, Param, Patch, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import { JwtGuard } from '../auth/guard';
-import { GetUserDecorator } from './decorator';
+import {GetRightDecorator, GetUserDecorator} from './decorator';
 import { User } from '../mongodb/user/user.schema';
 import { UserService } from './user.service';
 import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import { UserSwaggerDto } from "../swagger";
 import { PutUserDto } from "./dto";
+import { PaginationDto } from "../pagination/dto/pagination.dto";
 
 @ApiTags('Users')
 @UseGuards(JwtGuard)
@@ -16,8 +17,8 @@ export class UserController {
   @ApiOperation({ summary: 'Получение списка всех польхователей' })
   @ApiResponse({ type: UserSwaggerDto, isArray: true })
   @Get()
-  getAllUsers() {
-    return this.userService.getAllUsers();
+  getAllUsers(@GetRightDecorator(2) right: boolean, @Query() query: PaginationDto) {
+    return this.userService.getAllUsers(query);
   }
 
   @ApiOperation({ summary: 'Получение информации авторизированного пользователя' })

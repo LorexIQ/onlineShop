@@ -1,10 +1,12 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { MongodbService } from '../mongodb/mongodb.service';
-import {PutUserDto} from "./dto";
+import { PutUserDto } from "./dto";
+import { PaginationDto } from "../pagination/dto/pagination.dto";
+import { PaginationService } from "../pagination/pagination.service";
 
 @Injectable()
 export class UserService {
-  constructor(private mongo: MongodbService) {}
+  constructor(private mongo: MongodbService, private builderPag: PaginationService) {}
 
   async updateUser(id, body) {
     await this.mongo.user.updateOne({ _id: id }, {
@@ -23,8 +25,8 @@ export class UserService {
     });
   }
 
-  getAllUsers() {
-    return this.mongo.user.find().select('-hash -__v');
+  async getAllUsers(query: PaginationDto) {
+    return this.builderPag.buildPaginationObject(await this.mongo.user.find().select('-hash -__v'), query);
   }
   async getIdUser(id: string) {
     try {
