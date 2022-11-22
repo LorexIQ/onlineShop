@@ -140,6 +140,11 @@ export default {
     this.userData = (await this.$axios.get(`/api/users/me`)).data
     this.sellerData = (await this.$axios.get(`/api/sellers/me`)).data
   },
+  watch: {
+    '$auth.user.image'() {
+      this.$set(this.userData, 'image', this.$auth.user.image)
+    }
+  },
   mounted() {
     setTimeout(() => {
       this.loadedAnimation = true
