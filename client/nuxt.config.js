@@ -32,7 +32,8 @@ export default {
   plugins: [
     '@plugins/globalComponents.js',
     '@plugins/fontawesome.js',
-    '@plugins/eventBus.js'
+    '@plugins/eventBus.js',
+    '@plugins/fileManager.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

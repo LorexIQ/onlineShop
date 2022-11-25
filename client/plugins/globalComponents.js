@@ -20,6 +20,7 @@ import LNavBar from "@/components/LNavBar";
 import LNavBarButton from "@/components/LNavBarButton";
 import LAdminButton from "@/components/LAdminButton";
 import LSvgBooleanStatus from "@/components/LSvgBooleanStatus";
+import LImg from "@/components/LImg";
 
 Vue.use(VueTheMask)
 
@@ -42,3 +43,4 @@ Vue.component('l-navbar', LNavBar)
 Vue.component('l-navbar-btn', LNavBarButton)
 Vue.component('l-admin-button', LAdminButton)
 Vue.component('l-svg-boolean-status', LSvgBooleanStatus)
+Vue.component('l-img', LImg)

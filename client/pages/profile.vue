@@ -9,8 +9,8 @@
       </div>
       <div class="profile__box__info-table">
         <div class="profile__box__info-table__photo">
-          <div class="profile__box__info-table__photo__img" v-if="userData && userData.image" key="image">
-            <img :src="userData.image" alt="">
+          <div class="profile__box__info-table__photo__img" v-if="$auth.user && $auth.user.image" key="image">
+            <l-img :src="$auth.user.image" name="user-avatar"/>
           </div>
           <div class="profile__box__info-table__photo__img" v-else key="no-image">
             <lfa icon="user"/>
@@ -141,6 +141,7 @@ export default {
     this.userData = (await this.$axios.get(`/api/users/me`)).data
     this.sellerData = (await this.$axios.get(`/api/sellers/me`)).data
   },
+  fetchDelay: 300,
   watch: {
     '$auth.user.image'() {
       this.$set(this.userData, 'image', this.$auth.user.image)
@@ -162,21 +163,25 @@ export default {
     logout() {
       this.$router.push({ path: '/auth' })
       setTimeout(() => {
-        this.$auth.logout().then(() => {
-        }).catch(err => {
-
-        })
+        this.$auth.logout()
       }, 300)
-
     },
 
     uploadImage(event) {
+      this.$fileM.upload(`users/${this.userData.username}/avatar.png`, event.target.files[0])
+        .then(res => {
+          this.$set(this.$auth.user, 'image', res.path)
+          this.$evBus.send('l-img-user-avatar')
+          this.updateUserInServer({
+            image: this.$auth.user.image
+          })
+        })
+        .catch(err => {
+          this.$ctoast.error('Ошибка обновления фотографии')
+        })
       let reader = new FileReader()
       reader.onload = (file) => {
-        this.$set(this.$auth.user, 'image', file.target.result)
-        this.updateUserInServer({
-          image: this.$auth.user.image
-        })
+
       }
       reader.readAsDataURL(event.target.files[0])
     },

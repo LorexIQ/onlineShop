@@ -12,7 +12,7 @@
           key="profile"
         >
           <div class="navbar__box__nav__profile" key="profile" v-if="$auth.user && $auth.user.image">
-            <img :src="$auth.user.image" alt="">
+            <l-img :src="$auth.user.image" name="user-avatar"/>
           </div>
           <div class="navbar__box__nav__profile" key="no-profile" v-else>
             <lfa icon="user"/>

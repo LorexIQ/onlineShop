@@ -31,7 +31,12 @@
               >
                 <template v-if="column.type === 'increment'">{{ row.n }}</template>
                 <template v-else-if="column.type === 'text'">{{ row[column.id] }}</template>
-                <template v-if="column.type === 'svg-boolean'">
+                <template v-else-if="column.type === 'img'">
+                  <div class="micro-img">
+                    <l-img :src="row[column.id]"/>
+                  </div>
+                </template>
+                <template v-else-if="column.type === 'svg-boolean'">
                   <l-svg-boolean-status v-model="row[column.id]"/>
                 </template>
               </l-td>
@@ -64,6 +69,11 @@ export default {
           width: '70px'
         },
         {
+          id: 'image',
+          name: '',
+          type: 'img'
+        },
+        {
           id: 'username',
           name: 'Логин',
           type: 'text',
@@ -91,6 +101,20 @@ export default {
   &__box {
     &__table {
       margin-top: 20px;
+      .micro-img {
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+        border: 1px solid var(--MainPurpleColor);
+        border-radius: 100%;
+        overflow: hidden;
+        & img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          background-color: var(--MainPurpleColor);
+        }
+      }
     }
   }
 }
