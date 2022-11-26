@@ -9,7 +9,7 @@ export class SellerService {
 
     getSeller(id: string) {
         const seller = this.mongo.seller.findOne({
-            buyerId: id
+            _id: id
         });
         return seller ? seller : {};
     }

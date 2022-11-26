@@ -13,6 +13,7 @@ import LTPaginationModule from "@/components/table/LTPaginationModule";
 import LTLoaderModule from "@/components/table/LTLoaderModule";
 import LTModalModule from "~/components/table/LTModalModule";
 
+// Another components
 import LInput from "~/components/LInput";
 import LButton from "@/components/LButton";
 import LInputMasked from "@/components/LInputMasked";
@@ -21,6 +22,7 @@ import LNavBarButton from "@/components/LNavBarButton";
 import LAdminButton from "@/components/LAdminButton";
 import LSvgBooleanStatus from "@/components/LSvgBooleanStatus";
 import LImg from "@/components/LImg";
+import LAvatar from "@/components/LAvatar";
 
 Vue.use(VueTheMask)
 
@@ -44,3 +46,4 @@ Vue.component('l-navbar-btn', LNavBarButton)
 Vue.component('l-admin-button', LAdminButton)
 Vue.component('l-svg-boolean-status', LSvgBooleanStatus)
 Vue.component('l-img', LImg)
+Vue.component('l-avatar', LAvatar)

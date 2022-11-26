@@ -16,7 +16,7 @@
               </l-th>
             </l-tr>
           </l-thead>
-          <l-tbody>
+          <l-tbody :full-size="15">
             <l-tr :hover="true"
               v-if="tableData.length"
               v-for="row in tableData"

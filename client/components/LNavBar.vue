@@ -11,12 +11,7 @@
           :title="logged ? 'Профиль' : 'Войти'"
           key="profile"
         >
-          <div class="navbar__box__nav__profile" key="profile" v-if="$auth.user && $auth.user.image">
-            <l-img :src="$auth.user.image" name="user-avatar"/>
-          </div>
-          <div class="navbar__box__nav__profile" key="no-profile" v-else>
-            <lfa icon="user"/>
-          </div>
+          <l-avatar :src="$auth.user.image" diameter="25px"/>
         </l-navbar-btn>
         <l-navbar-btn title="Заказы" v-if="logged" key="orders">
           <div class="navbar__box__nav__svg">
@@ -32,7 +27,7 @@
           title="Админ"
           key="admin"
           :click="() => { $router.push({ path: '/admin' }) }"
-          v-if="logged && $auth.user.role === 3"
+          v-if="logged && $auth.user.role > 1"
         >
           <div class="navbar__box__nav__svg">
             <lfa icon="unlock"/>
@@ -96,26 +91,6 @@ export default {
     &__nav {
       display: flex;
       gap: 20px;
-      &__profile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 25px;
-        height: 25px;
-        border: 1px solid var(--MainPurpleColor);
-        border-radius: 100%;
-        background-color: var(--MainPurpleColor);
-        overflow: hidden;
-        & svg {
-          font-size: 12px;
-          color: #fff;
-        }
-        & img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
       &__svg {
         color: var(--MainPurpleColor);
         max-height: 25px;

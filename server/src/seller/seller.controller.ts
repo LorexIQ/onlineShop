@@ -14,7 +14,7 @@ export class SellerController {
     }
 
     @Get('me')
-    getMeSeller(@GetUserDecorator('_id') id: string) {
+    getMeSeller(@GetUserDecorator('sellerId') id: string) {
         return this.sellerService.getSeller(id);
     }
     @Get(':id')

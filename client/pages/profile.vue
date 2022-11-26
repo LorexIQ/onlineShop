@@ -8,28 +8,12 @@
         </div>
       </div>
       <div class="profile__box__info-table">
-        <div class="profile__box__info-table__photo">
-          <div class="profile__box__info-table__photo__img" v-if="$auth.user && $auth.user.image" key="image">
-            <l-img :src="$auth.user.image" name="user-avatar"/>
-          </div>
-          <div class="profile__box__info-table__photo__img" v-else key="no-image">
-            <lfa icon="user"/>
-          </div>
-          <div class="profile__box__info-table__photo__actions">
-            <input
-              id="photo-upload"
-              type="file"
-              @change="uploadImage($event)"
-              accept=".jpg, .png, .jpeg|image/*"
-            >
-            <label for="photo-upload" class="profile__box__info-table__photo__actions__action">
-              Загрузить
-            </label>
-            <div class="profile__box__info-table__photo__actions__action" @click="deleteImage">
-              Удалить
-            </div>
-          </div>
-        </div>
+        <l-avatar
+          :src="$auth.user.image"
+          :actions="true"
+          :action-top="{ title: 'Загрузить', func: uploadImage }"
+          :action-bottom="{ title: 'Удалить', func: deleteImage }"
+        />
         <div class="profile__box__info-table__full-name">
           <span>Имя</span>
           <span v-if="userData.firstName">{{ userData.firstName }}</span>
@@ -142,11 +126,6 @@ export default {
     this.sellerData = (await this.$axios.get(`/api/sellers/me`)).data
   },
   fetchDelay: 300,
-  watch: {
-    '$auth.user.image'() {
-      this.$set(this.userData, 'image', this.$auth.user.image)
-    }
-  },
   mounted() {
     setTimeout(() => {
       this.loadedAnimation = true
@@ -180,10 +159,6 @@ export default {
           this.$ctoast.error('Ошибка обновления фотографии')
         })
       let reader = new FileReader()
-      reader.onload = (file) => {
-
-      }
-      reader.readAsDataURL(event.target.files[0])
     },
     deleteImage() {
       this.$set(this.$auth.user, 'image', '')
@@ -265,74 +240,6 @@ export default {
             grid-template-areas: "A B" "C C";
             grid-auto-columns: 120px auto;
             row-gap: 10px;
-            &__photo {
-              position: relative;
-              grid-area: A;
-              &__img {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100px;
-                height: 100px;
-                border: 2px solid var(--MainPurpleColor);
-                border-radius: 100%;
-                background-color: var(--MainPurpleColor);
-                box-sizing: border-box;
-                overflow: hidden;
-                & svg {
-                  font-size: 30px;
-                  color: #fff;
-                }
-                & img {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                }
-              }
-              &__actions {
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: flex;
-                flex-direction: column;
-                width: 100px;
-                height: 100px;
-                border-radius: 100%;
-                background-color: rgba(0, 0, 0, .4);
-                overflow: hidden;
-                opacity: 0;
-                transition: .3s;
-                &:hover {
-                  opacity: 1;
-                }
-                &__action {
-                  font-size: 14px;
-                  font-weight: 500;
-                  display: flex;
-                  justify-content: center;
-                  height: 50px;
-                  width: 100px;
-                  color: #f0f0f0;
-                  background-color: rgba(0, 0, 0, 0);
-                  cursor: pointer;
-                  user-select: none;
-                  transition: .3s;
-                  &:nth-child(2) {
-                    align-items: flex-end;
-                    padding-bottom: 5px;
-                  }
-                  &:last-child {
-                    padding-top: 5px;
-                  }
-                  &:hover {
-                    background-color: rgba(0, 0, 0, .2);
-                  }
-                }
-              }
-              & input {
-                display: none;
-              }
-            }
             &__full-name {
               grid-area: B;
               display: grid;

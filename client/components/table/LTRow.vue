@@ -20,12 +20,17 @@ export default {
       default: () => {
         return false
       }
+    },
+    modalAddFunction: {
+      type: Function,
+      default: () => {}
     }
   },
   methods: {
     clickFunction() {
       if (this.modal) {
         this.$evBus.send('table-modal-' + this.name, true)
+        this.modalAddFunction()
       }
     }
   },
@@ -38,6 +43,7 @@ export default {
 <style lang="scss" scoped>
 .l-tr {
   position: relative;
+  height: 40px;
   &:not(&:last-child) {
     &:after {
       content: ' ';
@@ -72,7 +78,7 @@ export default {
       }
     }
   }
-  &:last-child {
+  &:last-of-type {
     & .l-th, & .l-td {
       &:first-child {
         border-bottom-left-radius: 5px;

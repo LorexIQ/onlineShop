@@ -1,15 +1,11 @@
 <template>
-  <img v-if="src && src.length && imageData.length" :src="imageData" alt="">
+  <img v-if="src && src.length && GET_DATA[src] && GET_DATA[src].length" :src="GET_DATA[src]" alt="">
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "LImg",
-  data() {
-    return {
-      imageData: ''
-    }
-  },
   props: {
     src: {
       type: String | undefined,
@@ -25,21 +21,29 @@ export default {
       this.loadImage()
     }
   },
+  computed: {
+    ...mapGetters([
+      'GET_DATA'
+    ])
+  },
   beforeMount() {
-    this.loadImage()
+    this.loadImage(false)
     this.$evBus.listen('l-img-' + this.name, () => {
-      this.loadImage()
+      this.loadImage(true)
     })
   },
   methods: {
-    loadImage() {
+    ...mapActions([
+      'RUN_LOAD_DATA',
+      'RUN_UPDATE_DATA'
+    ]),
+    loadImage(update) {
       if (this.src) {
-        this.$fileM.load(this.src).then(res => {
-          this.imageData = res
-        }).catch(err => {
-          this.imageData = ''
-          console.error(err)
-        })
+        if (update) {
+          this.RUN_UPDATE_DATA(this.src)
+        } else {
+          this.RUN_LOAD_DATA(this.src)
+        }
       }
     }
   }
