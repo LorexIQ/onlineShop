@@ -33,6 +33,7 @@
               >
                 <template v-if="column.type === 'increment'">{{ row.n }}</template>
                 <template v-else-if="column.type === 'text'">{{ row[column.id] }}</template>
+                <template v-else-if="column.type === 'role'">{{ rolesList[row[column.id]] }}</template>
                 <template v-else-if="column.type === 'img'">
                   <l-avatar :src="row[column.id]" diameter="30px" style="margin: 0 auto;"/>
                 </template>
@@ -143,6 +144,12 @@ export default {
           type: 'text',
         },
         {
+          id: 'role',
+          name: 'Роль',
+          type: 'role',
+          width: '160px'
+        },
+        {
           id: 'emailVerify',
           name: 'Активирован',
           type: 'svg-boolean',
@@ -160,11 +167,10 @@ export default {
   },
   watch: {
     'selectedRow.sellerId'() {
-      const sellerId = this.selectedRow.sellerId
-      if (!this.selectedRow.sellerData && sellerId) {
+      if (!this.selectedRow.sellerData && this.selectedRow.sellerId) {
         this.$evBus.send('table-pag-default', true)
         Promise.all([
-          this.APIGetSellerId(sellerId)
+          this.APIGetSellerId()
         ]).then(res => {
           this.$set(this.selectedRow, 'sellerData', res[0].data)
           this.$evBus.send('table-pag-default', false)
@@ -179,19 +185,30 @@ export default {
     }
   },
   methods: {
-    async APIGetSellerId(id) {
-      return await this.$axios.get(`api/sellers/${id}`)
+    async APIGetSellerId() {
+      return await this.$axios.get(`api/sellers/${this.selectedRow.sellerId}`)
+    },
+    async APIDeleteUserId() {
+      return await this.$axios.delete(`api/users/${this.selectedRow._id}`)
     },
 
     sellerButtonAction() {
       if (this.selectedRow.sellerData.verify) {
-
       } else {
         this.$router.push({ path: 'sellers' })
       }
     },
     userDelete() {
-
+      this.$evBus.send('table-pag-default', true)
+      Promise.all([
+        this.APIDeleteUserId()
+      ]).then(res => {
+        this.$evBus.send('table-modal-default', false)
+        this.$evBus.send('table-pag-default-update')
+      }).catch(err => {
+        this.$ctoast.error('Ошибка удаления пользователя')
+        this.$evBus.send('table-pag-default', false)
+      })
     }
   }
 }

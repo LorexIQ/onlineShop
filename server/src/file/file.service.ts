@@ -1,6 +1,6 @@
 import {ForbiddenException, Injectable} from '@nestjs/common';
-import {createReadStream, createWriteStream, existsSync, mkdirSync} from "fs";
-import {join} from "path";
+import { rm, readFileSync, createWriteStream, existsSync, mkdirSync } from "fs";
+import { join } from "path";
 
 @Injectable()
 export class FileService {
@@ -28,9 +28,13 @@ export class FileService {
             throw new ForbiddenException('Файл не найден');
         }
         try {
-            return createReadStream(join(process.cwd(), dirPath + fileName));
+            return readFileSync(join(process.cwd(), dirPath + fileName));
         } catch (err) {
             throw new ForbiddenException('Ошибка чтения файла');
         }
+    }
+    deleteFile(path: string) {
+        const [dirPath, fileName] = this.parsePathFile(path);
+        rm(dirPath + fileName, { recursive: true}, (err) => {});
     }
 }

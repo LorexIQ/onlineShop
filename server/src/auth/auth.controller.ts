@@ -8,8 +8,8 @@ import {VerifyDto} from "./dto/verify.dto";
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
+
   @ApiOperation({ summary: 'Регистрация нового пользователя' })
   @ApiBody({ type: SignupDto })
   @ApiResponse({ status: HttpStatus.OK, type: UserSwaggerDto })

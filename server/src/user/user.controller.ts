@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import { JwtGuard } from '../auth/guard';
 import {GetRightDecorator, GetUserDecorator} from './decorator';
 import { User } from '../mongodb/user/user.schema';
@@ -46,7 +46,21 @@ export class UserController {
   @ApiParam({ name: 'id', type: 'string' })
   @ApiBody({ type: PutUserDto })
   @Patch(':id')
-  updateUser(@Param('id') id: string, @Body() body: PutUserDto) {
-    return this.userService.updateUserId(id, body);
+  updateUser(
+      @GetRightDecorator(2) right: Boolean,
+      @GetUserDecorator('role') role: Number,
+      @Param('id') id: string,
+      @Body() body: PutUserDto
+  ) {
+    return this.userService.updateUserId(id, body, role);
+  }
+
+  @Delete(':id')
+  deleteUser(
+      @GetRightDecorator(2) right: Boolean,
+      @GetUserDecorator('role') role: Number,
+      @Param('id') id: string
+  ) {
+    return this.userService.deleteUserId(id, role);
   }
 }
