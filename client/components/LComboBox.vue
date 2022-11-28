@@ -69,7 +69,7 @@ export default {
   },
   mounted() {
     if (this.values.length) {
-      if (Object.keys(this.value) > 0) {
+      if (Object.keys(this.value).length > 0) {
         this.selectedValue = this.value
       } else {
         this.selectedValue = this.values[0]

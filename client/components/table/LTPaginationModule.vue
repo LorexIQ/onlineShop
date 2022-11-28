@@ -112,9 +112,11 @@ export default {
     } else {
       this.page = 0
     }
-    this.$evBus.listen('table-pag-' + this.name + '-update', () => {
-      this.loadPage()
-    })
+    setTimeout(() => {
+      this.$evBus.listen('table-pag-' + this.name + '-update', () => {
+        this.loadPage()
+      })
+    }, 1000)
   },
   methods: {
     async APIGetUrlData() {
