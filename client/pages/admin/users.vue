@@ -17,8 +17,10 @@
               </l-th>
             </l-tr>
           </l-thead>
+          <l-tfilter-module v-model="tableColumns"/>
           <l-tbody :full-size="limit">
             <l-tr
+              v-if="tableData.length"
               v-for="row in tableData"
               :key="row.id"
               :hover="true"
@@ -33,7 +35,9 @@
               >
                 <template v-if="column.type === 'increment'">{{ row.n }}</template>
                 <template v-else-if="column.type === 'text'">{{ row[column.id] }}</template>
-                <template v-else-if="column.type === 'role'">{{ rolesList[row[column.id]] }}</template>
+                <template v-else-if="column.type === 'role'">
+                  {{ rolesList[row[column.id]] }} ({{row[column.id]}})
+                </template>
                 <template v-else-if="column.type === 'img'">
                   <l-avatar :src="row[column.id]" diameter="25px" style="margin: 0 auto;"/>
                 </template>
@@ -41,6 +45,9 @@
                   <l-svg-boolean-status v-model="row[column.id]"/>
                 </template>
               </l-td>
+            </l-tr>
+            <l-tr v-if="!tableData.length">
+              <l-td text-align="center" colspan="100%">Нет Данных</l-td>
             </l-tr>
           </l-tbody>
           <l-tloader-module />
@@ -137,17 +144,20 @@ export default {
           id: 'username',
           name: 'Логин',
           type: 'text',
+          filter: true
         },
         {
           id: 'email',
           name: 'Почта',
           type: 'text',
+          filter: true
         },
         {
           id: 'role',
           name: 'Роль',
           type: 'role',
-          width: '160px'
+          width: '160px',
+          filter: true
         },
         {
           id: 'emailVerify',
