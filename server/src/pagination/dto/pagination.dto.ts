@@ -8,4 +8,7 @@ export class PaginationDto {
     @ApiProperty()
     @IsOptional()
     offset: number;
+    @ApiProperty()
+    @IsOptional()
+    filter: string;
 }

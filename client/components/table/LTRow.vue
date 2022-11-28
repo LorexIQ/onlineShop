@@ -43,7 +43,7 @@ export default {
 <style lang="scss" scoped>
 .l-tr {
   position: relative;
-  height: 40px;
+  height: 37px;
   &:not(&:last-child) {
     &:after {
       content: ' ';

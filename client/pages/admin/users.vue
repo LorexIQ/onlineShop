@@ -35,7 +35,7 @@
                 <template v-else-if="column.type === 'text'">{{ row[column.id] }}</template>
                 <template v-else-if="column.type === 'role'">{{ rolesList[row[column.id]] }}</template>
                 <template v-else-if="column.type === 'img'">
-                  <l-avatar :src="row[column.id]" diameter="30px" style="margin: 0 auto;"/>
+                  <l-avatar :src="row[column.id]" diameter="25px" style="margin: 0 auto;"/>
                 </template>
                 <template v-else-if="column.type === 'svg-boolean'">
                   <l-svg-boolean-status v-model="row[column.id]"/>
@@ -173,7 +173,9 @@ export default {
           this.APIGetSellerId()
         ]).then(res => {
           this.$set(this.selectedRow, 'sellerData', res[0].data)
-          this.$evBus.send('table-pag-default', false)
+          setTimeout(() => {
+            this.$evBus.send('table-pag-default', false)
+          }, 300)
         }).catch(err => {
           this.$ctoast.error('Ошибка загрузки информации об пользователе')
           this.$evBus.send('table-modal-default', false)

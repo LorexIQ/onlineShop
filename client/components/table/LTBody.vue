@@ -1,7 +1,7 @@
 <template>
   <tbody class="l-tbody">
     <slot/>
-    <div v-if="fullSize - rows > 0" v-for="row in fullSize - rows" :key="row" style="height: 40px"/>
+    <div v-if="fullSize - rows > 0" v-for="row in fullSize - rows" :key="row" style="height: 37px"/>
   </tbody>
 </template>
 

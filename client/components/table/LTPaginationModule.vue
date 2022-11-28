@@ -99,7 +99,7 @@ export default {
       this.dataServer = this.value
     },
     page() {
-      this.$router.push({ path: this.$route.path, query: { page: this.page + 1 } })
+      this.$router.push({ path: this.$route.path, query: { ...this.$route.query, page: this.page + 1 } })
       this.loadPage()
     }
   },
@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     async APIGetUrlData() {
-      return await this.$axios.get(`${this.url}/?limit=${this.limit}&offset=${this.page * this.limit}`)
+      return await this.$axios.get(`${this.url}/?limit=${this.limit}&offset=${this.page * this.limit}${this.$route.query.filter ? `&filter=${this.$route.query.filter}` : ''}`)
     },
 
     selectPage(nPage) {

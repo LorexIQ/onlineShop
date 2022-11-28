@@ -13,14 +13,22 @@ export default {
       default: () => {
         return 'default'
       }
+    },
+    modalDelay: {
+      type: Number,
+      default: 0
     }
   },
   render(element) {
-    return element('table', { class: `l-table ${this.loader ? 'loader' : ''} ${this.modal ? 'modal' : ''}` }, this.$slots.default)
+    return element('table', { class: `l-table ${this.loader  ? 'loader' : ''} ${this.modal && !this.loader ? 'modal' : ''}` }, this.$slots.default)
   },
   mounted() {
     this.$evBus.listen('table-pag-' + this.name, (loaderStatus) => this.loader = loaderStatus)
-    this.$evBus.listen('table-modal-' + this.name, (modalStatus) => this.modal = modalStatus)
+    this.$evBus.listen('table-modal-' + this.name, (modalStatus) => {
+      setTimeout(() => {
+        this.modal = modalStatus
+      }, this.modalDelay)
+    })
   }
 }
 </script>

@@ -7,7 +7,7 @@ export class TestService {
     constructor(private builderPag: PaginationService) {}
 
     getRandomSymbol(): String {
-        const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+        const alphabet = ' абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
         return alphabet[Math.ceil(Math.random() * (alphabet.length - 1))];
     }
     paginationTest(query: PaginationDto): { count: number; values: Array<Object> } {
@@ -15,7 +15,8 @@ export class TestService {
         for (let i of Array(200).keys()) {
             testArray.push({
                 id: i,
-                name: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => this.getRandomSymbol()).join(''),
+                name: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => this.getRandomSymbol()).join(''),
+                role: [1, 1, 1].map(() => this.getRandomSymbol()).join(''),
                 status: Math.random() * 50 > 25
             });
         }

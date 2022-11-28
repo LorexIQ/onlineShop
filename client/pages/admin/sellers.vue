@@ -16,16 +16,17 @@
               </l-th>
             </l-tr>
           </l-thead>
+          <l-tfilter-module v-model="tableColumns"/>
           <l-tbody :full-size="15">
             <l-tr :hover="true"
               v-if="tableData.length"
               v-for="row in tableData"
-              :key="row.id"
+              :key="'row-' + row.id"
               :modal="true"
             >
               <l-td
                 v-for="column in tableColumns"
-                :key="column.id"
+                :key="`field-${row.id}-${column.id}`"
                 :text-align="column.align"
               >
                 <template v-if="column.type === 'increment'">
@@ -81,7 +82,14 @@ export default {
         {
           id: 'name',
           name: 'Наименование',
-          type: 'text'
+          type: 'text',
+          filter: true
+        },
+        {
+          id: 'role',
+          name: 'Роль',
+          type: 'text',
+          filter: true
         },
         {
           id: 'status',
@@ -92,6 +100,8 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
   }
 }
 </script>

@@ -12,6 +12,7 @@ import LTFoot from "@/components/table/LTFoot";
 import LTPaginationModule from "@/components/table/LTPaginationModule";
 import LTLoaderModule from "@/components/table/LTLoaderModule";
 import LTModalModule from "~/components/table/LTModalModule";
+import LTFilterModule from "@/components/table/LTFilterModule";
 
 // Another components
 import LInput from "~/components/LInput";
@@ -23,6 +24,7 @@ import LAdminButton from "@/components/LAdminButton";
 import LSvgBooleanStatus from "@/components/LSvgBooleanStatus";
 import LImg from "@/components/LImg";
 import LAvatar from "@/components/LAvatar";
+import LComboBox from "@/components/LComboBox";
 
 Vue.use(VueTheMask)
 
@@ -37,6 +39,7 @@ Vue.component('l-th', LTHeader)
 Vue.component('l-tpag-module', LTPaginationModule)
 Vue.component('l-tloader-module', LTLoaderModule)
 Vue.component('l-tmodal-module', LTModalModule)
+Vue.component('l-tfilter-module', LTFilterModule)
 
 Vue.component('l-input', LInput)
 Vue.component('l-input-masked', LInputMasked)
@@ -47,3 +50,4 @@ Vue.component('l-admin-button', LAdminButton)
 Vue.component('l-svg-boolean-status', LSvgBooleanStatus)
 Vue.component('l-img', LImg)
 Vue.component('l-avatar', LAvatar)
+Vue.component('l-combobox', LComboBox)

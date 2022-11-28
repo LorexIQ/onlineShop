@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import {ForbiddenException, Injectable} from "@nestjs/common";
 import { PaginationDto } from "./dto/pagination.dto";
 
 @Injectable()
@@ -8,6 +8,20 @@ export class PaginationService {
     buildPaginationObject(data: Array<any>, query: PaginationDto): { count: number; values: Array<Object> } {
         data = JSON.parse(JSON.stringify(data));
         const fullData: boolean = query.limit === undefined || query.offset === undefined;
+        if (query.filter && query.filter.length) {
+            const [keysString, value] = query.filter.split('-');
+            try {
+                const keys = keysString.split('*');
+                data = keys.reduce((store: Array<any>, key: string) => {
+                    return [
+                        ...store,
+                        ...data.filter(item => `${item[key]}`.toLowerCase().includes(value.toLowerCase()))
+                    ];
+                }, []);
+            } catch (err) {
+                throw new ForbiddenException('Ошибка параметров фильтрации');
+            }
+        }
         const resData = {
             count: data.length,
             returned: 0,
