@@ -117,10 +117,8 @@
 </template>
 
 <script>
-import Profile from "@/pages/profile";
 export default {
   name: "users",
-  components: {Profile},
   middleware: 'admin',
   data() {
     return {

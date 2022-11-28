@@ -10,6 +10,9 @@
       @click="windowClick"
     >
       {{ values.length ? selectedValue[config.nameKey] : 'Пусто'}}
+      <div class="combobox__header__arrow">
+        <lfa icon="caret-down" :class="{'fa-flip-vertical': openedList}"/>
+      </div>
     </div>
     <transition name="list-transition">
       <div v-if="values.length && openedList" ref="test" class="combobox__body">
@@ -101,6 +104,7 @@ export default {
 
 <style lang="scss" scoped>
 .combobox {
+  font-size: 14px;
   position: relative;
   user-select: none;
   & > div {
@@ -113,7 +117,7 @@ export default {
   &__header {
     position: absolute;
     height: 100%;
-    padding: 2px 10px;
+    padding: 3px 10px;
     color: var(--MainDarknesColor);
     transition: 0.3s;
     cursor: pointer;
@@ -123,6 +127,14 @@ export default {
     }
     &--focus {
       outline: 1px solid rgba(108, 99, 255, 0.5);
+    }
+    &__arrow {
+      position: absolute;
+      right: 5px;
+      top: calc(50% - 8px);
+      & svg {
+        transition: .3s;
+      }
     }
   }
   &__body {

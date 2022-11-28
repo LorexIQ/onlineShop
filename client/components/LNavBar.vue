@@ -11,7 +11,7 @@
           :title="logged ? 'Профиль' : 'Войти'"
           key="profile"
         >
-          <l-avatar :src="$auth.user.image" diameter="25px"/>
+          <l-avatar :src="$auth.user ? $auth.user.image : $auth.user" diameter="25px"/>
         </l-navbar-btn>
         <l-navbar-btn title="Заказы" v-if="logged" key="orders">
           <div class="navbar__box__nav__svg">
