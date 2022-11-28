@@ -55,6 +55,8 @@ export class UserController {
     return this.userService.updateUserId(id, body, role);
   }
 
+  @ApiOperation({ summary: 'Удаление пользователя по id' })
+  @ApiParam({ name: 'id', type: 'string' })
   @Delete(':id')
   deleteUser(
       @GetRightDecorator(2) right: Boolean,

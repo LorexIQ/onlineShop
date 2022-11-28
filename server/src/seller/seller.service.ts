@@ -10,7 +10,7 @@ export class SellerService {
     getSeller(id: string) {
         const seller = this.mongo.seller.findOne({
             _id: id
-        });
+        }).select('-__v');
         return seller ? seller : {};
     }
     async createSeller(body: SellerDto, id: string) {
