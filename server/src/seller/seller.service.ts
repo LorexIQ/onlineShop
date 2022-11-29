@@ -2,11 +2,16 @@ import {ForbiddenException, Injectable} from "@nestjs/common";
 import {MongodbService} from "../mongodb/mongodb.service";
 import {SellerDto} from "./dto/seller.dto";
 import {User} from "../mongodb/user/user.schema";
+import {PaginationService} from "../pagination/pagination.service";
+import {PaginationDto} from "../pagination/dto/pagination.dto";
 
 @Injectable()
 export class SellerService {
-    constructor(private mongo: MongodbService) {}
+    constructor(private mongo: MongodbService, private builderPag: PaginationService) {}
 
+    async getAllSellers(query: PaginationDto) {
+        return this.builderPag.buildPaginationObject(await this.mongo.seller.find().select('-__v'), query);
+    }
     getSeller(id: string) {
         const seller = this.mongo.seller.findOne({
             _id: id
@@ -43,6 +48,15 @@ export class SellerService {
             const seller = await this.mongo.seller.findOne({ _id: body.sellerId });
             await this.mongo.user.updateOne({ _id: body['_id'] }, { $unset: { sellerId: 1 }});
             seller.remove();
+        } else {
+            throw new ForbiddenException('Продавец не найден');
+        }
+    }
+
+    async verifySeller(id: string) {
+        const seller = await this.mongo.seller.findOne({ _id: id });
+        if (seller) {
+            await this.mongo.seller.updateOne({ _id: id }, { verify: true });
         } else {
             throw new ForbiddenException('Продавец не найден');
         }

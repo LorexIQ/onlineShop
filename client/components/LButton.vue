@@ -72,6 +72,9 @@ export default {
     &:hover {
       background: rgba(152, 145, 253, 0.5);
     }
+    & span {
+      padding: 0 10px;
+    }
     &.loader {
       background-color: var(--MainDimPurpleColor);
       user-select: none;

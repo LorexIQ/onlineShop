@@ -81,7 +81,7 @@
                   <l-avatar :src="selectedRow.sellerData.image" diameter="200px"/>
                   <p>{{ selectedRow.sellerData.name }}</p>
                 </div>
-                <l-button :click="sellerButtonAction">
+                <l-button :click="goToSeller">
                   {{ selectedRow.sellerData.verify ? 'Перейти' : 'Ожидает верификации' }}
                 </l-button>
               </div>
@@ -187,20 +187,40 @@ export default {
       }
     }
   },
+  mounted() {
+    const idUser = this.$route.query.id
+    if (idUser && idUser.length) {
+      this.$nextTick(() => {
+        this.$router.push({ path: this.$route.path, query: { ...this.$route.query, id: null } })
+      })
+      this.$evBus.send('table-loader-default', true)
+      Promise.all([
+        this.APIGetUserId(idUser)
+      ]).then(res => {
+        this.selectedRow = res[0].data
+        this.$evBus.send('table-modal-default', true)
+        setTimeout(() => {
+          this.$evBus.send('table-loader-default', false)
+        }, 300)
+      }).catch(err => {
+        this.$ctoast.error('Ошибка загрузки предпросмотра пользователя')
+        setTimeout(() => {
+          this.$evBus.send('table-loader-default', false)
+        }, 300)
+      })
+    }
+  },
   methods: {
     async APIGetSellerId() {
       return await this.$axios.get(`api/sellers/${this.selectedRow.sellerId}`)
+    },
+    async APIGetUserId(id) {
+      return await this.$axios.get(`api/users/${id}`)
     },
     async APIDeleteUserId() {
       return await this.$axios.delete(`api/users/${this.selectedRow._id}`)
     },
 
-    sellerButtonAction() {
-      if (this.selectedRow.sellerData.verify) {
-      } else {
-        this.$router.push({ path: 'sellers' })
-      }
-    },
     userDelete() {
       this.$evBus.send('table-pag-default', true)
       Promise.all([
@@ -212,6 +232,9 @@ export default {
         this.$ctoast.error('Ошибка удаления пользователя')
         this.$evBus.send('table-pag-default', false)
       })
+    },
+    goToSeller() {
+      this.$router.push({ path: 'sellers', query: { id: this.selectedRow.sellerId } })
     }
   }
 }
