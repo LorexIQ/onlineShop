@@ -56,7 +56,12 @@ export default {
         setTimeout(() => {
           this.$evBus.send(`table-pag-${this.name}-update`)
         }, 100)
-      }, 900)
+      }, 400)
+    }
+  },
+  mounted() {
+    if (this.$route.query.sort && this.$route.query.sort.length) {
+      this.sortState = this.$route.query.sort
     }
   },
   methods: {
