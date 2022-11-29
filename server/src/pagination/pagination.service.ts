@@ -27,6 +27,19 @@ export class PaginationService {
                 throw new ForbiddenException('Ошибка параметров фильтрации');
             }
         }
+        if (query.sort && query.sort.length) {
+            try {
+                const sortMode = query.sort[0];
+                const sortColumn = query.sort.slice(1);
+                if (sortMode === '-') {
+                    data = data.sort((a, b) => a[sortColumn] < b[sortColumn] ? 1 : a[sortColumn] > b[sortColumn] ? -1 : 0);
+                } else {
+                    data = data.sort((a, b) => a[sortColumn] > b[sortColumn] ? 1 : a[sortColumn] < b[sortColumn] ? -1 : 0);
+                }
+            } catch(err) {
+                throw new ForbiddenException('Ошибка параметров сортировки');
+            }
+        }
         const resData = {
             count: data.length,
             returned: 0,

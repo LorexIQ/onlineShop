@@ -11,4 +11,7 @@ export class PaginationDto {
     @ApiProperty()
     @IsOptional()
     filter: string;
+    @ApiProperty()
+    @IsOptional()
+    sort: string;
 }

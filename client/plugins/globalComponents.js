@@ -13,6 +13,7 @@ import LTPaginationModule from "@/components/table/LTPaginationModule";
 import LTLoaderModule from "@/components/table/LTLoaderModule";
 import LTModalModule from "~/components/table/LTModalModule";
 import LTFilterModule from "@/components/table/LTFilterModule";
+import LTSortingHeaderModule from "@/components/table/LTSortingHeaderModule";
 
 // Another components
 import LInput from "~/components/LInput";
@@ -40,6 +41,7 @@ Vue.component('l-tpag-module', LTPaginationModule)
 Vue.component('l-tloader-module', LTLoaderModule)
 Vue.component('l-tmodal-module', LTModalModule)
 Vue.component('l-tfilter-module', LTFilterModule)
+Vue.component('l-theadsort-module', LTSortingHeaderModule)
 
 Vue.component('l-input', LInput)
 Vue.component('l-input-masked', LInputMasked)

@@ -5,18 +5,7 @@
       <h1 v-else>Пользователи</h1>
       <div class="users__box__table">
         <l-table>
-          <l-thead>
-            <l-tr>
-              <l-th
-                v-for="column in tableColumns"
-                :key="column.id"
-                :text-align="column.align"
-                :width="column.width"
-              >
-                {{ column.name }}
-              </l-th>
-            </l-tr>
-          </l-thead>
+          <l-theadsort-module v-model="tableColumns"/>
           <l-tfilter-module v-model="tableColumns"/>
           <l-tbody :full-size="limit">
             <l-tr
@@ -142,27 +131,31 @@ export default {
           id: 'username',
           name: 'Логин',
           type: 'text',
-          filter: true
+          filter: true,
+          sort: true
         },
         {
           id: 'email',
           name: 'Почта',
           type: 'text',
-          filter: true
+          filter: true,
+          sort: true
         },
         {
           id: 'role',
           name: 'Роль',
           type: 'role',
           width: '160px',
-          filter: true
+          filter: true,
+          sort: true
         },
         {
           id: 'emailVerify',
           name: 'Активирован',
           type: 'svg-boolean',
           align: 'center',
-          width: '130px'
+          width: '130px',
+          sort: true
         }
       ],
       selectedRow: {},

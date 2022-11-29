@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     async APIGetUrlData() {
-      return await this.$axios.get(`${this.url}/?limit=${this.limit}&offset=${this.page * this.limit}${this.$route.query.filter ? `&filter=${this.$route.query.filter}` : ''}`)
+      return await this.$axios.get(`${this.url}/?limit=${this.limit}&offset=${this.page * this.limit}${this.$route.query.filter ? `&filter=${this.$route.query.filter}` : ''}${this.$route.query.sort ? `&sort=${this.$route.query.sort}` : ''}`)
     },
 
     selectPage(nPage) {

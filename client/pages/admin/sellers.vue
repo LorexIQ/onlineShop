@@ -4,18 +4,7 @@
       <h1>Панель управления продавцами</h1>
       <div class="sellers__box__table">
         <l-table>
-          <l-thead>
-            <l-tr>
-              <l-th
-                v-for="column in tableColumns"
-                :key="column.id"
-                :text-align="column.align"
-                :width="column.width"
-              >
-                {{ column.name }}
-              </l-th>
-            </l-tr>
-          </l-thead>
+          <l-theadsort-module v-model="tableColumns"/>
           <l-tfilter-module v-model="tableColumns"/>
           <l-tbody :full-size="15">
             <l-tr :hover="true"
@@ -83,20 +72,23 @@ export default {
           id: 'name',
           name: 'Наименование',
           type: 'text',
-          filter: true
+          filter: true,
+          sort: true
         },
         {
           id: 'role',
           name: 'Роль',
           type: 'text',
-          filter: true
+          filter: true,
+          sort: true
         },
         {
           id: 'status',
           name: 'Активирован',
           type: 'svg-boolean',
           align: 'center',
-          width: '130px'
+          width: '130px',
+          sort: true
         }
       ]
     }
