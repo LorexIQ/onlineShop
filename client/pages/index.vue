@@ -1,6 +1,10 @@
 <template>
   <div class="page">
-    <div class="test"></div>
+    <div class="page__products">
+      <div class="page__products__empty box">
+        Нет товаров
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,10 +21,16 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  & .test {
-    height: 3000px;
-    width: 20px;
-    background-color: #c0bcfa;
+  &__products {
+    width: 1100px;
+    margin: 0 auto;
+    min-height: 100%;
+    &__empty {
+      font-size: 18px;
+      margin-top: 40px;
+      color: var(--MainHoverDarknesColor);
+      text-align: center;
+    }
   }
 }
 </style>

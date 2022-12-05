@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="profile__box profile__box--seller box">
+    <div class="profile__box profile__box--seller profile__box profile__box--seller-box box">
       <div class="profile__box__title">
         <h1>Профиль продавца</h1>
       </div>
@@ -57,32 +57,10 @@
           <l-button :click="() => { $router.push({ path: '/seller/new' }) }">Регистрация</l-button>
         </div>
         <div class="profile__box__info-table" key="seller-profile-loaded" v-else-if="sellerData.verify">
-          <div class="profile__box__info-table__photo">
-            <div class="profile__box__info-table__photo__img" v-if="sellerData.image" key="image">
-              <img :src="sellerData.image" alt="">
-            </div>
-            <div class="profile__box__info-table__photo__img" v-else key="no-image">
-              <lfa icon="user"/>
-            </div>
-            <div class="profile__box__info-table__photo__actions">
-              <input
-                id="photo-upload"
-                type="file"
-                @change="uploadImage($event)"
-                accept=".jpg, .png, .jpeg|image/*"
-              >
-              <label for="photo-upload" class="profile__box__info-table__photo__actions__action">
-                Загрузить
-              </label>
-              <div class="profile__box__info-table__photo__actions__action" @click="deleteImage">
-                Удалить
-              </div>
-            </div>
-          </div>
+          <l-avatar :src="sellerData.image"/>
           <div class="profile__box__info-table__full-name">
             <span>Имя</span>
-            <span v-if="sellerData.name">{{ sellerData.name }}</span>
-            <span class="no-data" v-else>Не задано</span>
+            <span>{{ sellerData.name }}</span>
           </div>
           <div class="profile__box__info-table__info">
             <div class="profile__box__info-table__info__item">
@@ -309,6 +287,50 @@ export default {
             row-gap: 10px;
             grid-template-areas: "A B" "C C";
             align-items: center;
+            &__full-name {
+              grid-area: B;
+              display: grid;
+              grid-template-areas: "A B";
+              grid-auto-rows: 40px 40px;
+              grid-auto-columns: 100px auto;
+              align-items: center;
+              align-content: center;
+              & span {
+                font-size: 18px;
+                font-weight: 500;
+                &:first-child {
+                  grid-area: A;
+                  color: var(--MainPurpleColor);
+                }
+                &:nth-child(2) {
+                  grid-area: B;
+                  justify-self: flex-end;
+                  color: var(--MainDarknesColor);
+                }
+              }
+            }
+            &__info {
+              grid-area: C;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              &__item {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                & span {
+                  font-weight: 500;
+                  &:first-child {
+                    grid-area: A;
+                    color: var(--MainPurpleColor);
+                  }
+                  &:last-child {
+                    grid-area: B;
+                    color: var(--MainDarknesColor);
+                  }
+                }
+              }
+            }
             & p {
               grid-area: A;
               margin: 0;
@@ -323,6 +345,15 @@ export default {
               height: 36px;
               grid-area: C;
             }
+          }
+        }
+      }
+    }
+    &--seller-box {
+      .profile {
+        &__box {
+          &__info-table {
+            grid-auto-columns: 120px auto;
           }
         }
       }
