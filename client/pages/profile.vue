@@ -47,7 +47,10 @@
         </div>
       </div>
     </div>
-    <div class="profile__box profile__box--seller profile__box profile__box--seller-box box">
+    <div
+      class="profile__box profile__box--seller box"
+      :class="{'profile__box--seller-box': sellerData.verify}"
+    >
       <div class="profile__box__title">
         <h1>Профиль продавца</h1>
       </div>

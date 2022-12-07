@@ -43,10 +43,10 @@ export class SellerService {
         });
         return seller;
     }
-    async deleteSeller(body: User) {
-        if (body.sellerId) {
-            const seller = await this.mongo.seller.findOne({ _id: body.sellerId });
-            await this.mongo.user.updateOne({ _id: body['_id'] }, { $unset: { sellerId: 1 }});
+    async deleteSeller(id: string) {
+        if (id) {
+            const seller = await this.mongo.seller.findOne({ _id: id });
+            await this.mongo.user.updateOne({ _id: seller.buyerId }, { $unset: { sellerId: 1 }});
             seller.remove();
         } else {
             throw new ForbiddenException('Продавец не найден');

@@ -195,9 +195,20 @@ export default {
     async APIPatchVerifySeller() {
       return await this.$axios.patch(`api/sellers/verify/${this.selectedRow._id}`)
     },
+    async APIDeleteSeller() {
+      return await this.$axios.delete(`/api/sellers/${this.selectedRow._id}`)
+    },
 
     sellerDelete() {
-
+      Promise.all([
+        this.APIDeleteSeller()
+      ]).then(res => {
+        this.$evBus.send('table-modal-default', false)
+        this.$evBus.send('table-pag-default-update')
+      }).catch(err => {
+        this.$ctoast.error('Ошибка удаления продавца')
+        this.$evBus.send('table-pag-default', false)
+      })
     },
     sellerVerify() {
       Promise.all([

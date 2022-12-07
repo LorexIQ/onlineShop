@@ -40,8 +40,13 @@ export class SellerController {
     }
     @ApiOperation({ summary: 'Удаление магазина авторизированного пользователя' })
     @Delete('me')
-    deleteMeSeller(@GetUserDecorator() body: User) {
-        return this.sellerService.deleteSeller(body);
+    deleteMeSeller(@GetUserDecorator('sellerId') id: string) {
+        return this.sellerService.deleteSeller(id);
+    }
+    @ApiOperation({ summary: 'Удаление магазина пользователя по id' })
+    @Delete(':id')
+    deleteIdSeller(@GetRightDecorator(3) right: Boolean, @Param('id') id: string) {
+        return this.sellerService.deleteSeller(id);
     }
     @Patch('verify/:id')
     verifySeller(@GetRightDecorator(2) right: Boolean, @Param('id') id: string) {
